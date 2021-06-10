@@ -12,13 +12,13 @@
           <b-nav-item :to="{ name: 'register' }">Register</b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto" v-else>
-        <b-nav-item-dropdown right>
-          <template #button-content>
-            User
-          </template>
-          <b-dropdown-item href="#">Favorites</b-dropdown-item>
-          <b-dropdown-item href="#">Log Out</b-dropdown-item>
-        </b-nav-item-dropdown>
+          <b-nav-item-dropdown right>
+            <template #button-content>
+              {{$root.store.username}}
+            </template>
+            <b-dropdown-item href="#">Favorites</b-dropdown-item>
+            <b-dropdown-item v-on:click="Logout()" href="#">Log Out</b-dropdown-item>
+          </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>

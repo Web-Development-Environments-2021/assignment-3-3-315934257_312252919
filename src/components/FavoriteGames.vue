@@ -1,13 +1,19 @@
 <template>
-  <div>
-    <GamePreview
-      v-for="g in games"
-      :id="g.id" 
-      :hostTeam="g.hostTeam" 
-      :guestTeam="g.guestTeam" 
-      :date="g.date" 
-      :hour="g.hour" 
-      :key="g.id"></GamePreview>
+  <div v-if="alreadyMounted">
+    <div v-if="games.length !=0">
+      <GamePreview
+        v-for="g in games"
+        :id="g.game_id" 
+        :hostTeam="g.home_team" 
+        :guestTeam="g.away_team" 
+        :date="g.game_date_time.split('T')[0]"
+        :hour="g.game_date_time.split('T')[1].split('.')[0]"
+        :key="g.game_id">
+      </GamePreview>
+    </div>
+    <div v-else>
+      <p>No Favourite Games!!</p>
+    </div>
   </div>
 </template>
 
@@ -20,45 +26,36 @@ export default {
   }, 
   data() {
     return {
-      games: [
-        {
-          id:25,
-          hostTeam: "Maccabi Tel-Aviv",
-          guestTeam: "Hapoel Beer-Sheva",
-          date: "27/5/21",
-          hour: "20:00"
-        },
-        {
-          id:39,
-          hostTeam: "Hapoel Tel-Aviv",
-          guestTeam: "Maccabi Haifa",
-          date: "29/5/21",
-          hour: "20:00"
-        }
-      ]
+      games: [],
+      alreadyMounted: false
     };
   },
-  // methods: {
-  //   async updateGames(){
-  //     console.log("response");
-  //     try {
-  //       const response = await this.axios.get(
-  //         "http://localhost:3000/games/favoriteGames",
-  //       );
-  //       const games = response.data.games;
-  //       this.games = [];
-  //       this.games.push(...games);
-  //       console.log(response);
-  //     } catch (error) {
-  //       console.log("error in update games")
-  //       console.log(error);
-  //     }
-  //   }
-  // }, 
-  // mounted(){
+  methods: {
+    async updateGames(){
+      console.log("response");
+      try {
+        const response = await this.axios.get(
+          "http://localhost:3000/users/favoriteGames",
+        );
+        const games = response.data;
+        this.games = [];
+        this.games.push(...games);
+        console.log(response);
+        this.alreadyMounted = true;
+      } catch (error) {
+        console.log("error in update games")
+        console.log(error);
+      }
+    }
+  },
+  // beforeMount(){
   //   console.log("favorite games mounted");
   //   this.updateGames(); 
-  // }
+  // }, 
+  mounted(){
+    console.log("favorite games mounted");
+    this.updateGames();
+  }
 };
 </script>
 
