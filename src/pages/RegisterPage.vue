@@ -26,23 +26,6 @@
       </b-form-group>
 
       <b-form-group
-        id="input-group-country"
-        label-cols-sm="3"
-        label="Country:"
-        label-for="country"
-      >
-        <b-form-select
-          id="country"
-          v-model="$v.form.country.$model"
-          :options="countries"
-          :state="validateState('country')"
-        ></b-form-select>
-        <b-form-invalid-feedback>
-          Country is required
-        </b-form-invalid-feedback>
-      </b-form-group>
-
-      <b-form-group
         id="input-group-Password"
         label-cols-sm="3"
         label="Password:"
@@ -89,6 +72,85 @@
           The confirmed password is not equal to the original password
         </b-form-invalid-feedback>
       </b-form-group>
+
+      <b-form-group 
+        id="input-group-email"
+        label-cols-sm="3"
+        label="Email:"
+        label-for="email">
+        
+        <b-form-input
+          id="email"
+          type="email"
+          v-model="$v.form.email.$model"
+          :state="validateState('email')">
+        </b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.email.email">
+          Email is not valid.
+        </b-form-invalid-feedback>
+
+      </b-form-group>
+
+      <b-form-group 
+        id="input-group-firstName"
+        label-cols-sm="3"
+        label="First Name:"
+        label-for="firstName">
+        
+        <b-form-input
+          id="firstName"
+          v-model="$v.form.firstName.$model"
+          type="text"
+          :state="validateState('firstName')">
+        </b-form-input>
+      </b-form-group>
+
+      <b-form-group 
+        id="input-group-lastName"
+        label-cols-sm="3"
+        label="Last Name:"
+        label-for="lastName"
+        :state="validateState('lastName')">
+        
+        <b-form-input
+          id="lastName"
+          v-model="$v.form.lastName.$model"
+          type="text">
+        </b-form-input>
+      </b-form-group>
+
+      <b-form-group
+        id="input-group-country"
+        label-cols-sm="3"
+        label="Country:"
+        label-for="country"
+      >
+        <b-form-select
+          id="country"
+          v-model="$v.form.country.$model"
+          :options="countries"
+          :state="validateState('country')"
+        ></b-form-select>
+        <b-form-invalid-feedback>
+          Country is required
+        </b-form-invalid-feedback>
+      </b-form-group>
+
+      <b-form-group 
+        id="input-group-imgUrl"
+        label-cols-sm="3"
+        label="Profile Image:"
+        label-for="imgUrl">
+        
+        <b-form-input
+          id="imgUrl"
+          v-model="$v.form.profileImg.$model"
+          :state="validateState('profileImg')"
+          type="text">
+        </b-form-input>
+      </b-form-group>
+
+      
 
       <b-button type="reset" variant="danger">Reset</b-button>
       <b-button
@@ -142,6 +204,7 @@ export default {
         password: "",
         confirmedPassword: "",
         email: "",
+        profileImg: "",
         submitError: undefined
       },
       countries: [{ value: null, text: "", disabled: true }],
@@ -166,6 +229,19 @@ export default {
       confirmedPassword: {
         required,
         sameAsPassword: sameAs("password")
+      },
+      email: {
+        required,
+        email,
+      },
+      firstName: {
+        required,
+      },
+      lastName: {
+        required,
+      },
+      profileImg: {
+        required: false,
       }
     }
   },
@@ -182,10 +258,15 @@ export default {
     async Register() {
       try {
         const response = await this.axios.post(
-          "https://test-for-3-2.herokuapp.com/user/Register",
+          "http://localhost:3000/Register",
           {
             username: this.form.username,
-            password: this.form.password
+            password: this.form.password,
+            first_name: this.form.firstName,
+            last_name: this.form.lastName,
+            email: this.form.email,
+            country: this.form.country,
+            img_url: this.form.profileImg
           }
         );
         this.$router.push("/login");
@@ -212,7 +293,8 @@ export default {
         country: null,
         password: "",
         confirmedPassword: "",
-        email: ""
+        email: "",
+        profileImg: ""
       };
       this.$nextTick(() => {
         this.$v.$reset();
