@@ -30,7 +30,8 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin, 
-  InputGroupPlugin
+  InputGroupPlugin,
+  TabsPlugin
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
@@ -43,7 +44,8 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin, 
-  InputGroupPlugin
+  InputGroupPlugin,
+  TabsPlugin
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
