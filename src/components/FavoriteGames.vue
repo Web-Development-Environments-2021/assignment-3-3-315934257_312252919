@@ -43,7 +43,7 @@ export default {
         console.log(response);
         this.alreadyMounted = true;
       } catch (error) {
-        console.log("error in update games")
+        console.log("error in update games");
         console.log(error);
       }
     }
