@@ -21,11 +21,11 @@ export default {
         required: true
       },
       hostTeam: {
-        type: String,
+        type: Number,
         required: true
       },
       guestTeam: {
-        type: String,
+        type: Number,
         required: true
       },
       date: {
