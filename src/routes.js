@@ -1,5 +1,7 @@
 import Main from "./pages/MainPage";
 import NotFound from "./pages/NotFoundPage";
+import PlayerCard from "./pages/PlayerCard";
+import TeamCard from "./pages/TeamCard"
 
 const routes = [
   {
@@ -31,6 +33,16 @@ const routes = [
     path: "/associationRepresentative",
     name: "assRep",
     component: () => import("./pages/AssRepPage")
+  },
+  {
+    path: "/player/:id",
+    name: "player",
+    component: PlayerCard
+  },
+  {
+    path: "/team/:id",
+    name: "team",
+    component: TeamCard
   },
   {
     path: "*",
