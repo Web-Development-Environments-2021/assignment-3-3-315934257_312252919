@@ -14,6 +14,11 @@ const router = new VueRouter({
 import Vuelidate from "vuelidate";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faFutbol } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+library.add(faFutbol) 
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 import {
   FormGroupPlugin,
   FormPlugin,
@@ -25,7 +30,8 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin, 
-  InputGroupPlugin
+  InputGroupPlugin,
+  TabsPlugin
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
@@ -38,7 +44,8 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin, 
-  InputGroupPlugin
+  InputGroupPlugin,
+  TabsPlugin
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
@@ -73,9 +80,11 @@ const shared_data = {
   // username: localStorage.username,
   // username: "hilla",
   username: undefined,
-  login(username) {
+  userPermissions: "",
+  login(username, userPerms) {
     localStorage.setItem("username", username);
     this.username = username;
+    this.userPermissions = userPerms;
     console.log("login", this.username);
   },
   logout() {

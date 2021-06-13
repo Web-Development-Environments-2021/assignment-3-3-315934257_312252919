@@ -25,6 +25,16 @@ const routes = [
     component: () => import("./pages/SearchPage")
   },
   {
+    path: "/admin",
+    name: "admin",
+    component: () => import("./pages/AdminPage")
+  },
+  {
+    path: "/associationRepresentative",
+    name: "assRep",
+    component: () => import("./pages/AssRepPage")
+  },
+  {
     path: "/player/:id",
     name: "player",
     component: PlayerCard

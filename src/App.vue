@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <b-navbar toggleable="lg" type="dark" variant="info">
-      <b-navbar-brand :to="{ name: 'main' }">Superliga Vue</b-navbar-brand>
+      <b-navbar-brand :to="{ name: 'main' }">
+        <font-awesome-icon :icon="['fas', 'futbol']" />
+        Managit</b-navbar-brand>
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
 
@@ -12,6 +14,15 @@
           <b-nav-item :to="{ name: 'register' }">Register</b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto" v-else>
+          <b-nav-item :to="{name: 'assRep' }" v-if="$root.store.userPermissions.includes('representative')">
+              Association Representative
+          </b-nav-item>
+          <b-nav-item :to="{name: 'admin'}" v-if="$root.store.userPermissions.includes('admin')">
+            Admin
+            <!-- <b-dropdown-item :to="{ name: 'addAdmin' }">Add Admin</b-dropdown-item>
+            <b-dropdown-item href="#">Add Representative</b-dropdown-item>
+          </b-nav-item-dropdown> -->
+          </b-nav-item>
           <b-nav-item-dropdown right>
             <template #button-content>
               {{$root.store.username}}
@@ -19,6 +30,7 @@
             <b-dropdown-item href="#">Favorites</b-dropdown-item>
             <b-dropdown-item v-on:click="Logout()" href="#">Log Out</b-dropdown-item>
           </b-nav-item-dropdown>
+
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>

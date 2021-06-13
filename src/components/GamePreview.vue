@@ -4,10 +4,12 @@
       <b>Game Id:</b> {{ id }}
     </div>
     <ul class="game-content">
-      <li> host: {{ hostTeam }}</li>
-      <li> guest: {{ guestTeam }}</li>
-      <li> date: {{ date }}</li>
-      <li> time: {{ hour }}</li>
+      <li> Host Team: {{ hostTeam }}</li>
+      <li> Guest Team: {{ guestTeam }}</li>
+      <li> Date: {{ date }}</li>
+      <li> Time: {{ hour }}</li>
+      <li v-if="field">Stadium: {{field}} </li>
+      <li v-if="gameScore">Score: {{gameScore}}</li>
     </ul>
   </div>
 </template>
@@ -35,6 +37,12 @@ export default {
       hour: {
         type: String,
         required: true
+      },
+      field: {
+        type: String,
+      },
+      gameScore: {
+        type: String,
       }
   }, 
   mounted(){
