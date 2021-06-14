@@ -42,12 +42,18 @@
         </b-form-invalid-feedback>
         <b-form-text v-else-if="$v.form.password.$error" text-variant="info">
           Your password should be <strong>strong</strong>. <br />
-          For that, your password should be also:
+          For that, your password should also:
         </b-form-text>
         <b-form-invalid-feedback
           v-if="$v.form.password.required && !$v.form.password.length"
         >
           Have length between 5-10 characters long
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if='!$v.form.password.digit'>
+          Have at least one digit among the characters.
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if='!$v.form.password.special'>
+          Have at least one special character among the characters.
         </b-form-invalid-feedback>
       </b-form-group>
 
@@ -148,6 +154,10 @@
           :state="validateState('profileImg')"
           type="text">
         </b-form-input>
+         <b-form-invalid-feedback v-if="!$v.form.profileImg.url">
+          The image should be a valid url address.
+        </b-form-invalid-feedback>
+
       </b-form-group>
 
       
@@ -189,7 +199,8 @@ import {
   maxLength,
   alpha,
   sameAs,
-  email
+  email,
+  url
 } from "vuelidate/lib/validators";
 
 export default {
@@ -224,7 +235,9 @@ export default {
       },
       password: {
         required,
-        length: (p) => minLength(5)(p) && maxLength(10)(p)
+        length: (p) => minLength(5)(p) && maxLength(10)(p),
+        digit: (p) => {return /\d/.test(p)},
+        special: (p) => {return /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(p)},
       },
       confirmedPassword: {
         required,
@@ -241,6 +254,7 @@ export default {
         required,
       },
       profileImg: {
+        url,
         required: false,
       }
     }
