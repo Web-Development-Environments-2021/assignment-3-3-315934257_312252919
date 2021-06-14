@@ -2,7 +2,7 @@
 <div class="container">
     <h1 class="title">Association Representative Page</h1>
     <div>
-        <b-tabs content-class="mt-4">
+        <b-tabs lazy content-class="mt-4">
             <b-tab title="Add Game" active>
               <h1 class="title">Add New Game</h1>
                 <b-form @submit.prevent="onAddingGame">
@@ -221,6 +221,7 @@
                 :hour="game.game_date_time.split('T')[1].split('.')[0]"
                 :field="game.field"
                 :gameScore="game.home_team_score + ':' + game.away_team_score"
+                :setBtn="false"
                 >
               </GamePreview>  
               <h1>Future Games:</h1>
@@ -232,8 +233,14 @@
                 :date="game.game_date_time.split('T')[0]"
                 :hour="game.game_date_time.split('T')[1].split('.')[0]"
                 :field="game.field"
+                :setBtn="false"
                 >
-              </GamePreview></b-tab>
+              </GamePreview>
+              <!-- <GamesPage
+              :favoriteBtn="false"
+              ></GamesPage> -->
+              </b-tab> 
+              
             
         </b-tabs>
     </div>
@@ -242,9 +249,10 @@
 
 <script>
 import { required, numeric } from "vuelidate/lib/validators";
-import GamePreview from "../components/GamePreview.vue"
+import GamePreview from "../components/GamePreview.vue";
+// import GamesPage from "./GamesPages.vue";
 export default {
-  name: "Association Representative",
+  name: "AssRep",
   data() {
     return {
         pastGames: [],
@@ -297,7 +305,8 @@ export default {
 
   },
   components: {
-      GamePreview
+      GamePreview,
+      // GamesPage
   },
   methods: {
     async getGames(){
@@ -305,11 +314,11 @@ export default {
         const response = await this.axios.get(
         "http://localhost:3000/games/stageGames"
         );
-        console.log(response.data.past)
+        // console.log(response.data.past)
         this.pastGames = [...response.data.past];
-        console.log("PAST: " + this.pastGames)
+        // console.log("PAST: " + this.pastGames)
         this.futureGames = [...response.data.future];
-        console.log("FUTURE: " + this.futureGames)
+        // console.log("FUTURE: " + this.futureGames)
         }
         catch(error){
             console.log(err.response)
@@ -370,7 +379,7 @@ export default {
           referee_name: this.addGameForm.referee
         }
         );
-        console.log(response)
+        // console.log(response)
         // this.addResultForm.gameId = undefined
         // this.addResultForm.homeScore = undefined
         // this.addResultForm.awayScore = undefined
@@ -382,8 +391,8 @@ export default {
     },
   },
   mounted(){
-      this.getGames();
-  },
+    this.getGames()
+  }
   
 };
 </script>

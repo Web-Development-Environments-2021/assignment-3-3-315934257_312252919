@@ -11,6 +11,7 @@
       <li v-if="field">Stadium: {{field}} </li>
       <li v-if="gameScore">Score: {{gameScore}}</li>
     </ul>
+    <b-button v-if="setBtn & !isHidden" @click='addAsFavorite(id)'>Add as Favorite</b-button>
   </div>
 </template>
 
@@ -23,11 +24,11 @@ export default {
         required: true
       },
       hostTeam: {
-        type: Number,
+        type: String,
         required: true
       },
       guestTeam: {
-        type: Number,
+        type: String,
         required: true
       },
       date: {
@@ -43,18 +44,40 @@ export default {
       },
       gameScore: {
         type: String,
+      },
+      setBtn: {
+        type: Boolean,
+        required: true
       }
-  }, 
-  mounted(){
-    console.log("game preview mounted")
-  } 
+  },
+  data() {
+    return {
+      isHidden: false,
+    };
+  },
+  methods : {
+    async addAsFavorite(gameId){
+      try{
+        const response = await this.axios.post(
+        "http://localhost:3000/users/favoriteGames", {
+          gameId: gameId,
+        }
+        );
+        // console.log(response)
+        this.isHidden = true;
+      }
+      catch(error){
+        console.log(error.response)
+      }
+    }
+  },
 };
 </script>
 
 <style>
 .game-preview {
   display: inline-block;
-  width: 250px;
+  width: 300px;
   height: 200px;
   position: relative;
   margin: 10px 10px;
