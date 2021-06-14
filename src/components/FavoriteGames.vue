@@ -4,10 +4,12 @@
       <GamePreview
         v-for="g in games"
         :id="g.game_id" 
-        :hostTeam="g.home_team" 
-        :guestTeam="g.away_team" 
+        :hostTeam="g.home_team_name+'['+g.home_team_id+']'" 
+        :guestTeam="g.away_team_name+'['+g.away_team_id+']'" 
         :date="g.game_date_time.split('T')[0]"
         :hour="g.game_date_time.split('T')[1].split('.')[0]"
+        :field="g.field"
+        :setBtn='false'
         :key="g.game_id">
       </GamePreview>
     </div>
@@ -40,7 +42,7 @@ export default {
         const games = response.data;
         this.games = [];
         this.games.push(...games);
-        console.log(response);
+        console.log(this.games);
         this.alreadyMounted = true;
       } catch (error) {
         console.log("error in update games");

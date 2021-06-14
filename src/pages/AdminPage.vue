@@ -95,11 +95,11 @@ export default {
     async getUsers(){
         if(this.selectedPermission == "Admin"){
             await this.getNonAdminUsers();
-            console.log(this.users)
+            // console.log(this.users)
         }
         else{
             await this.getNonRepUsers();
-            console.log(this.users)
+            // console.log(this.users)
         }
     },
     onSearch(){
@@ -113,15 +113,15 @@ export default {
             if(confirm("Are you sure that you want to set these permissions?")){
                 // console.log("asdas")
                 const axiosPath = this.getPath()
-                console.log(axiosPath)
-                console.log(this.selectedUserId)
+                // console.log(axiosPath)
+                // console.log(this.selectedUserId)
                 const response = await this.axios.post(
                 axiosPath,
                     {
                         userId: this.selectedUserId
                     }
                 );
-                console.log(response)
+                // console.log(response)
             }
         }
         catch(error){
@@ -131,7 +131,7 @@ export default {
 
     },
     getPath(){
-        console.log("here")
+        // console.log("here")
         if(this.selectedPermission == "Admin"){
             return "http://localhost:3000/admins/addAdmin"
         }
@@ -142,13 +142,6 @@ export default {
 
   },
   mounted(){
-      console.log("Add admin mounted")
-    //   if(this.selectedPermission == "Admin"){
-    //     this.getNonAdminUsers();
-    //   }
-    //   else{
-    //       this.getNonRepUsers();
-    //   }
     this.getUsers();
       
   }
