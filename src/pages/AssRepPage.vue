@@ -51,12 +51,13 @@
                     label="Date:"
                     label-for="date"
                 >
-                    <b-form-input
+                    <b-form-datepicker
                     id="date"
                     type="text"
+                    placeholder="Choose a date"
                     v-model="$v.addGameForm.date.$model"
                     :state="validateGameState('date')"
-                    ></b-form-input>
+                    ></b-form-datepicker>
                     <b-form-invalid-feedback >
                       Date is required
                     </b-form-invalid-feedback>
@@ -67,12 +68,14 @@
                     label="Time:"
                     label-for="time"
                 >
-                    <b-form-input
+                    <b-form-timepicker
+                    :hour12='false'
+                    placeholder="Choose a time"
                     id="time"
                     type="text"
                     v-model="$v.addGameForm.time.$model"
                     :state="validateGameState('time')"
-                    ></b-form-input>
+                    ></b-form-timepicker>
                     <b-form-invalid-feedback >
                       Game time is required
                     </b-form-invalid-feedback>

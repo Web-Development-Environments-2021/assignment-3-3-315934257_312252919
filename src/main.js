@@ -31,7 +31,9 @@ import {
   ToastPlugin,
   LayoutPlugin, 
   InputGroupPlugin,
-  TabsPlugin
+  TabsPlugin,
+  FormDatepickerPlugin,
+  FormTimepickerPlugin
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
@@ -45,7 +47,9 @@ import {
   ToastPlugin,
   LayoutPlugin, 
   InputGroupPlugin,
-  TabsPlugin
+  TabsPlugin,
+  FormDatepickerPlugin,
+  FormTimepickerPlugin
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
