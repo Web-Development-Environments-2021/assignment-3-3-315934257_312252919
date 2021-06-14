@@ -40,6 +40,11 @@ const routes = [
     component: () => import("./pages/AssRepPage")
   },
   {
+    path: "/favoriteGames",
+    name: "favoriteGames",
+    component: () => import("./pages/FavoriteGamesPage")
+  },
+  {
     path: "/player/:id",
     name: "player",
     component: PlayerCard

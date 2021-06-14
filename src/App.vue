@@ -13,6 +13,7 @@
         <b-navbar-nav class="ml-auto" v-if="!$root.store.username">
           <b-nav-item :to="{ name: 'login' }">Login</b-nav-item>
           <b-nav-item :to="{ name: 'register' }">Register</b-nav-item>
+          <b-nav-item disabled>Hello, guest</b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto" v-else>
           <b-nav-item :to="{name: 'assRep' }" v-if="$root.store.userPermissions.includes('representative')">
@@ -28,7 +29,7 @@
             <template #button-content>
               {{$root.store.username}}
             </template>
-            <b-dropdown-item href="#">Favorites</b-dropdown-item>
+            <b-dropdown-item :to="{name: 'favoriteGames'}">Favorites</b-dropdown-item>
             <b-dropdown-item v-on:click="Logout()" href="#">Log Out</b-dropdown-item>
           </b-nav-item-dropdown>
 

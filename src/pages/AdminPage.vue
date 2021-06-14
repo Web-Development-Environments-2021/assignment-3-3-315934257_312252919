@@ -130,6 +130,16 @@ export default {
         }
 
     },
+    checkConnection(){
+      if(!this.$root.store.username || !this.$root.store.userPermissions.includes('admin')){
+            this.$router.push('*').catch(() =>{
+                this.$forceUpdate();
+            });
+            return false;
+      }
+      return true;
+
+    },
     getPath(){
         // console.log("here")
         if(this.selectedPermission == "Admin"){
@@ -142,6 +152,9 @@ export default {
 
   },
   mounted(){
+    if(!this.checkConnection()){
+      return;
+    }
     this.getUsers();
       
   }
