@@ -78,6 +78,9 @@ import GamePreview from "../components/GamePreview.vue"
             },
             findGameInFavorites(game){
                 // console.log("IN FIND")
+                if(!this.$root.store.username){
+                    return true;
+                }
                 for(const userGame of this.userFavoriteGames){
                     if(game.id == userGame.game_id){
                         return true;
@@ -88,7 +91,9 @@ import GamePreview from "../components/GamePreview.vue"
 
         },
         mounted(){
-            this.getFavoriteGames();
+            if(this.$root.store.username){
+                    this.getFavoriteGames();
+                }
             this.getGames();
             
             

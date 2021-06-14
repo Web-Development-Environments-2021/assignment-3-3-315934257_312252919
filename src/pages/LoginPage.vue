@@ -93,27 +93,35 @@ export default {
     },
     async Login() {
       try {
-        const response = await this.axios.post(
+        console.log("In login method");
+        let response = await this.axios.post(
           "http://localhost:3000/Login",
           {
             username: this.form.username,
             password: this.form.password
           }
         );
-        // console.log(response);
+        console.log(response.message);
+        if(response.data.status == 401){
+          throw response.data.message;
+        }
         // console.log("User ID:" + response.data.userId)
         // this.$root.loggedIn = true;
         // console.log(this.$root.store.login);
         this.$root.store.login(this.form.username, response.data.permissionType);
-        // this.$router.push("/");
+        this.$router.push("/").catch(() =>{
+                this.$forceUpdate();
+            });;
       } catch (err) {
-        console.log(err.response);
-        this.form.submitError = err.response.data.message;
+        this.$root.toast("error", err, "danger");
+        // console.log(err);
+        this.form.submitError = err;
       }
     },
     onLogin() {
       // console.log("login method called");
-      this.form.submitError = undefined;
+      try{
+        this.form.submitError = undefined;
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
@@ -121,6 +129,11 @@ export default {
       // console.log("login method go");
 
       this.Login();
+      }
+      catch (error){
+        console.log(error);
+      }
+      
     }
   }
 };

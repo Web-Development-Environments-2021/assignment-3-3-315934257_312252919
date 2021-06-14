@@ -79,12 +79,13 @@ Vue.use(VueAxios, axios);
 Vue.config.productionTip = false;
 
 const shared_data = {
-  // username: localStorage.username,
+  username: localStorage.username || undefined,
   // username: "hilla",
-  username: undefined,
-  userPermissions: "",
+  // username: undefined,
+  userPermissions: localStorage.userPermissions || '',
   login(username, userPerms) {
     localStorage.setItem("username", username);
+    localStorage.setItem("userPermissions", userPerms);
     this.username = username;
     this.userPermissions = userPerms;
     console.log("login", this.username);
@@ -93,6 +94,8 @@ const shared_data = {
     console.log("logout");
     localStorage.removeItem("username");
     this.username = undefined;
+    localStorage.removeItem("userPermissions")
+    this.userPermissions = '';
   }
 };
 console.log(shared_data);
