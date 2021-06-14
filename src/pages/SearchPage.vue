@@ -10,12 +10,12 @@
       <br/>
       <!-- <p>Your search Query: {{ searchQuery }}</p> -->
       <p>I want to search for :</p>
-      <b-form-select id="team-player-select" v-model="teamplayerselected">
+      <b-form-select @change="filterChoose()" id="team-player-select" v-model="teamplayerselected">
         <b-form-select-option value="1">Player</b-form-select-option>
         <b-form-select-option value="2">Team</b-form-select-option>
       </b-form-select>
 
-        <b-button id="filter-button" v-on:click="filterC()">No Filter</b-button>
+        <!-- <b-button id="filter-button" v-on:click="filterChoose()">No Filter</b-button> -->
 
       <div id="player-filter" v-if="filterChoice">
         <p>filter by position :</p>
@@ -68,7 +68,7 @@ export default {
       positionselected: "0",
       teamselected:"0",
 
-      filterChoice: false
+      filterChoice: true
     };
   },
   components:{
@@ -76,21 +76,13 @@ export default {
     TeamPreview,
   },
   methods:{
-    async filterC(){
+    filterChoose(){
       let e = document.getElementById("filter-button");
-      if(this.filterChoice){
-        this.filterChoice = false;
-        e.innerHTML = "No Filter";
-        this.positionselected = "0";
-        this.teamselected = "0";
-      }else{
+      if(this.teamplayerselected == '1'){
         this.filterChoice = true;
-        e.innerHTML = "Filter";
+      }else{
+        this.filterChoice = false;
       }
-      // let posfilter = document.getElementById("position-select");
-      // let teamfilter = document.getElementById("team-select");
-      // console.log(posfilter.value);
-      // console.log(teamfilter.value);
     },
 
     async search(){

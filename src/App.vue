@@ -43,13 +43,16 @@
 export default {
   name: "App",
   methods: {
-    Logout() {
-      this.$root.store.logout();
-      this.$root.toast("Logout", "User logged out successfully", "success");
-
-      this.$router.push("/").catch(() => {
-        this.$forceUpdate();
-      });
+    async Logout() {
+      try{
+        this.$root.store.logout();
+        let response = await this.axios.post("http://localhost:3000/Logout");
+        console.log(response.data);
+        this.$root.toast("Logout", "User logged out successfully", "success");
+        this.$router.push("/").catch(() => {this.$forceUpdate();});
+      }catch(error){
+        console.log(error);
+      }
     }
   }
 };
