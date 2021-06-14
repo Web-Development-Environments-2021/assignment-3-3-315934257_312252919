@@ -51,12 +51,13 @@
                     label="Date:"
                     label-for="date"
                 >
-                    <b-form-input
+                    <b-form-datepicker
                     id="date"
                     type="text"
+                    placeholder="Choose a date"
                     v-model="$v.addGameForm.date.$model"
                     :state="validateGameState('date')"
-                    ></b-form-input>
+                    ></b-form-datepicker>
                     <b-form-invalid-feedback >
                       Date is required
                     </b-form-invalid-feedback>
@@ -67,12 +68,14 @@
                     label="Time:"
                     label-for="time"
                 >
-                    <b-form-input
+                    <b-form-timepicker
+                    :hour12='false'
+                    placeholder="Choose a time"
                     id="time"
                     type="text"
                     v-model="$v.addGameForm.time.$model"
                     :state="validateGameState('time')"
-                    ></b-form-input>
+                    ></b-form-timepicker>
                     <b-form-invalid-feedback >
                       Game time is required
                     </b-form-invalid-feedback>
@@ -215,8 +218,8 @@
               <GamePreview v-for="game in pastGames"
                 :key="game.id"
                 :id ="game.id"
-                :hostTeam="game.home_team"
-                :guestTeam="game.away_team"
+                :hostTeam="game.away_team_name+'['+game.away_team+']'"
+                :guestTeam="game.away_team_name+'['+game.away_team+']'"
                 :date="game.game_date_time.split('T')[0]"
                 :hour="game.game_date_time.split('T')[1].split('.')[0]"
                 :field="game.field"
@@ -228,8 +231,8 @@
               <GamePreview v-for="game in futureGames"
                 :key="game.id"
                 :id ="game.id"
-                :hostTeam="game.home_team"
-                :guestTeam="game.away_team"
+                :hostTeam="game.home_team_name+'['+game.home_team+']'"
+                :guestTeam="game.away_team_name+'['+game.away_team+']'"
                 :date="game.game_date_time.split('T')[0]"
                 :hour="game.game_date_time.split('T')[1].split('.')[0]"
                 :field="game.field"
