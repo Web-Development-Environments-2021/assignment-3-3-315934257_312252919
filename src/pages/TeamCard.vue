@@ -17,20 +17,22 @@
 
             <GamePreview v-for="g in past_games"
             :id="g.game_id"
-            :hostTeam="g.home_team"
-            :guestTeam="g.away_team"
+            :hostTeam="g.home_team_name+'['+g.home_team_id+']'"
+            :guestTeam="g.away_team_name+'['+g.away_team_id+']'"
             :date="g.game_date_time.split('T')[0]"
             :hour="g.game_date_time.split('T')[1].split('.')[0]"
-            :key="g.id">
+            :key="g.id"
+            :setBtn="false">
             </GamePreview>
 
             <GamePreview v-for="g in future_games"
             :id="g.game_id"
-            :hostTeam="g.home_team"
-            :guestTeam="g.away_team"
+            :hostTeam="g.home_team_name+'['+g.home_team_id+']'"
+            :guestTeam="g.away_team_name+'['+g.away_team_id+']'"
             :date="g.game_date_time.split('T')[0]"
             :hour="g.game_date_time.split('T')[1].split('.')[0]"
-            :key="g.id">
+            :key="g.id"
+            :setBtn="false">
             </GamePreview>
 
         </div>
