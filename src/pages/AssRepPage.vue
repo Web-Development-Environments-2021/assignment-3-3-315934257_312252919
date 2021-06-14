@@ -335,6 +335,16 @@ export default {
         }
         this.setResult();
     },
+    checkConnection(){
+      if(!this.$root.store.username || !this.$root.store.userPermissions.includes('representative')){
+            this.$router.push('*').catch(() =>{
+                this.$forceUpdate();
+            });
+            return false;
+      }
+      return true;
+
+    },
     onAddingGame(){
         this.addGameForm.submitError = undefined;
         this.$v.addGameForm.$touch();
@@ -394,6 +404,9 @@ export default {
     },
   },
   mounted(){
+    if(!this.checkConnection()){
+      return;
+    }
     this.getGames()
   }
   
