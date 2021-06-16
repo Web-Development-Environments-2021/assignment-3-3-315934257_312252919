@@ -4,8 +4,8 @@
       <GamePreview
         v-for="g in games"
         :id="g.game_id" 
-        :hostTeam="g.home_team_name+'['+g.home_team_id+']'" 
-        :guestTeam="g.away_team_name+'['+g.away_team_id+']'" 
+        :hostTeam="g.home_team_name" 
+        :guestTeam="g.away_team_name" 
         :date="g.game_date_time.split('T')[0]"
         :hour="g.game_date_time.split('T')[1].split('.')[0]"
         :field="g.field"

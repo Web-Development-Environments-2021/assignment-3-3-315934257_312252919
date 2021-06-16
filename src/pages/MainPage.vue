@@ -1,15 +1,17 @@
 <template>
   <div>
     <h1 class="title">Main Page</h1>
-    <div class='container' v-if="!$root.store.username">
-      <LoginPage v-if="!$root.store.username"></LoginPage>
-    </div>
-    <div class='container' v-else>
-      <FavoriteGames ></FavoriteGames>
-    </div>
-    <div class='leagueInfo'>
-    <LeagueInfo></LeagueInfo>
-    </div>
+    <b-container>
+      <b-row>
+        <b-col>
+          <LeagueInfo></LeagueInfo>
+        </b-col>
+        <b-col>
+          <LoginPage v-if="!$root.store.username"></LoginPage>
+          <FavoriteGames v-else></FavoriteGames>
+        </b-col>
+      </b-row>
+    </b-container>    
   </div>
 </template>
 
@@ -27,22 +29,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container{
-  position: relative;
-  right: 0;
-  margin-right: 0;
-}
-.leagueInfo{
-  float:left;
-  position:fixed;
-  
-}
-.blur {
-  -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
-  filter: blur(2px);
-}
-::v-deep .blur .recipe-preview {
-  pointer-events: none;
-  cursor: default;
+.title{
+  text-align: center;
+  color:whitesmoke;
 }
 </style>
