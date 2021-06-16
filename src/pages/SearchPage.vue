@@ -5,6 +5,7 @@
       <b-form-input v-model="searchQuery"></b-form-input>
       <b-input-group-append>
         <b-button v-on:click="search()" variant="success">Search</b-button>
+        <b-button @click='sortByName()' variant="success">Sort By Name</b-button>
       </b-input-group-append>
     </b-input-group>
       <br/>
@@ -29,16 +30,17 @@
           <b-form-select-option v-for="(tn, index) in possible_teams" :key="index" v-bind:value="tn">{{tn}}</b-form-select-option>
         </b-form-select>      
       </div>
-
-      <PlayerPreview v-for="p in players"
-      :id="p.id"
-      :full_name="p.name"
-      :team="p.team_name"
-      :image="p.image"
-      :position="p.position"
-      :key="p.id">
-      </PlayerPreview>
-
+      <div v-if='players.length > 0'>
+        <PlayerPreview v-for="p in players"
+        :id="p.id"
+        :full_name="p.name"
+        :team="p.team_name"
+        :image="p.image"
+        :position="p.position"
+        :key="p.id">
+        </PlayerPreview>
+      </div>
+      <div v-if='teams.length > 0'>
       <TeamPreview v-for="t in teams"
       :id="t.id"
       :team_name="t.name"
@@ -46,6 +48,7 @@
       :key="t.id">
 
       </TeamPreview>
+      </div>
 
   </div>
 </template>
@@ -89,9 +92,7 @@ export default {
       try{
         this.players = [];
         this.teams = [];
-        console.log(this.searchQuery);
         let e = document.getElementById("team-player-select");
-        console.log(e.value)
         if(e.value == "1"){
           await this.searchPlayers();
         }
@@ -132,7 +133,24 @@ export default {
       let t = response.data;
       this.teams = [];
       this.teams.push(...t);
-    }
+    },
+    sortByName(){
+      try{
+        let e = document.getElementById("team-player-select");
+        if(e.value == "1"){
+          this.players.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+        }
+        else if(e.value == "2"){
+          this.teams.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+        }
+        else{
+          return;
+        }
+      } catch (error){
+        console.log("error in update games")
+        console.log(error);
+      }
+    },
   },
   mounted(){
     this.possible_teams.push(...team_names);

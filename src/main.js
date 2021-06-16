@@ -16,8 +16,10 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faFutbol } from '@fortawesome/free-solid-svg-icons'
+import { faLinkedin } from "@fortawesome/fontawesome-free-brands";
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 library.add(faFutbol) 
+library.add(faLinkedin)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 import {
   FormGroupPlugin,
@@ -33,7 +35,12 @@ import {
   InputGroupPlugin,
   TabsPlugin,
   FormDatepickerPlugin,
-  FormTimepickerPlugin
+  FormTimepickerPlugin,
+  AvatarPlugin,
+  ImagePlugin,
+  IconsPlugin,
+  VBHoverPlugin,
+  BootstrapVueIcons,
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
@@ -49,7 +56,12 @@ import {
   InputGroupPlugin,
   TabsPlugin,
   FormDatepickerPlugin,
-  FormTimepickerPlugin
+  FormTimepickerPlugin,
+  AvatarPlugin,
+  ImagePlugin,
+  IconsPlugin,
+  VBHoverPlugin,
+  BootstrapVueIcons
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
