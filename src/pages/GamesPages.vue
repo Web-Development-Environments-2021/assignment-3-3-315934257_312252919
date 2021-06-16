@@ -1,30 +1,35 @@
 <template>
     <div v-if="alreadyMounted">
-        <h1>Past Games:</h1>
-        <GamePreview v-for="game in pastGames" ref='past'
-        :key="game.id"
-        :id ="game.id"
-        :hostTeam="game.home_team_name+'['+game.home_team+']'"
-        :guestTeam="game.away_team_name+'['+game.away_team+']'"
-        :date="game.game_date_time.split('T')[0]"
-        :hour="game.game_date_time.split('T')[1].split('.')[0]"
-        :field="game.field"
-        :gameScore="game.home_team_score + ':' + game.away_team_score"
-        :setBtn="false"
-        >
-        </GamePreview>  
-        <h1>Future Games:</h1>
-        <GamePreview v-for="game in futureGames" ref='future'
-        :key="game.id"
-        :id ="game.id"
-        :hostTeam="game.home_team_name+'['+game.home_team+']'"
-        :guestTeam="game.away_team_name+'['+game.away_team+']'"
-        :date="game.game_date_time.split('T')[0]"
-        :hour="game.game_date_time.split('T')[1].split('.')[0]"
-        :field="game.field"
-        :setBtn="!findGameInFavorites(game)"
-        >
-        </GamePreview>
+        <h1 class="title">Past Games:</h1>
+        <b-card-group>
+            <GamePreview v-for="game in pastGames" ref='past'
+            :key="game.id"
+            :id ="game.id"
+            :hostTeam="game.home_team_name"
+            :guestTeam="game.away_team_name"
+            :date="game.game_date_time.split('T')[0]"
+            :hour="game.game_date_time.split('T')[1].split('.')[0]"
+            :field="game.field"
+            :gameScore="game.home_team_score + ':' + game.away_team_score"
+            :setBtn="false"
+            >
+            </GamePreview>  
+        </b-card-group>
+        
+        <h1 class="title">Future Games:</h1>
+        <b-card-group>
+            <GamePreview v-for="game in futureGames" ref='future'
+            :key="game.id"
+            :id ="game.id"
+            :hostTeam="game.home_team_name"
+            :guestTeam="game.away_team_name"
+            :date="game.game_date_time.split('T')[0]"
+            :hour="game.game_date_time.split('T')[1].split('.')[0]"
+            :field="game.field"
+            :setBtn="!findGameInFavorites(game)"
+            >
+            </GamePreview>
+        </b-card-group>
     </div>
 </template>
 
@@ -101,6 +106,9 @@ import GamePreview from "../components/GamePreview.vue"
     }
 </script>
 
-<style lang="sass" scoped>
-
+<style lang="scss" scoped>
+.title{
+  text-align: center;
+  color:whitesmoke;
+}
 </style>

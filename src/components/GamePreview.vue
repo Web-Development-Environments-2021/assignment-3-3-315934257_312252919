@@ -1,5 +1,20 @@
 <template>
-  <div class="game-preview">
+  <b-card bg-variant="light">
+    <b-card-title>{{hostTeam}} VS. {{guestTeam}}</b-card-title>
+    <b-card-text>
+      <ul class="game-content">
+        <!-- <li> Host Team: {{ hostTeam }}</li> -->
+        <!-- <li> Guest Team: {{ guestTeam }}</li> -->
+        <li> Date: {{ date }}</li>
+        <li> Time: {{ hour }}</li>
+        <li v-if="field">Stadium: {{field}} </li>
+        <li v-if="gameScore">Score: {{gameScore}}</li>
+      </ul>
+      <b-button v-if="setBtn & !isHidden" @click='addAsFavorite(id)'>Add as Favorite</b-button>
+    </b-card-text>
+  </b-card>
+
+  <!-- <div class="game-preview">
     <div :title="id" class="game-title">
       <b>Game Id:</b> {{ id }}
     </div>
@@ -12,7 +27,7 @@
       <li v-if="gameScore">Score: {{gameScore}}</li>
     </ul>
     <b-button v-if="setBtn & !isHidden" @click='addAsFavorite(id)'>Add as Favorite</b-button>
-  </div>
+  </div> -->
 </template>
 
 <script>

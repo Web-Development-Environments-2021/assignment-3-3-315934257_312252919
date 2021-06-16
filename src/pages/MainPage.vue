@@ -32,5 +32,6 @@ export default {
 <style lang="scss" scoped>
 .title{
   text-align: center;
+  color:whitesmoke;
 }
 </style>
