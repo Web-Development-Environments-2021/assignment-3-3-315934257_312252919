@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <h1 class="title">Main Page</h1>
     <b-container>
       <b-row>
@@ -11,8 +11,7 @@
           <FavoriteGames v-else></FavoriteGames>
         </b-col>
       </b-row>
-    </b-container>
-    
+    </b-container>    
   </div>
 </template>
 

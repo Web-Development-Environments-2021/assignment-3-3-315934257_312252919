@@ -1,5 +1,5 @@
 <template>
-  <div v-if="alreadyMounted">
+  <div class='favGame' v-if="alreadyMounted">
     <div v-if="games.length !=0">
       <GamePreview
         v-for="g in games"
@@ -61,4 +61,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.favGame{
+  padding: 0;
+}
+</style>

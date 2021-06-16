@@ -9,6 +9,7 @@
 
         <b-nav-item :to="{ name: 'search' }">Search</b-nav-item>
         <b-nav-item :to="{ name: 'games'}">Games</b-nav-item>
+        <b-nav-item :to="{ name: 'about'}">About</b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto" v-if="!$root.store.username">
           <b-nav-item :to="{ name: 'login' }">Login</b-nav-item>
@@ -27,6 +28,7 @@
           </b-nav-item>
           <b-nav-item-dropdown right>
             <template #button-content>
+              <!-- <b-avatar variant="info" text='CV' size="1.8rem"></b-avatar> -->
               {{$root.store.username}}
             </template>
             <b-dropdown-item :to="{name: 'favoriteGames'}">Favorites</b-dropdown-item>
