@@ -75,10 +75,11 @@ body{
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   min-height: 100vh;
-  background-image: url("https://media.istockphoto.com/photos/football-on-the-lawn-closeup-detail-picture-id901231120?k=6&m=901231120&s=612x612&w=0&h=uNOJUVfdkFLrzf681duQPoOgOR9J8h3yIaXufRDpXz8=");
-  background-repeat: no-repeat;
+  background: url("https://media.istockphoto.com/photos/football-on-the-lawn-closeup-detail-picture-id901231120?k=6&m=901231120&s=612x612&w=0&h=uNOJUVfdkFLrzf681duQPoOgOR9J8h3yIaXufRDpXz8=") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   background-size: cover;
-  background-position: center center;
 }
 
 #nav {

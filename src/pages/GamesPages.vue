@@ -103,15 +103,13 @@ import GamePreview from "../components/GamePreview.vue"
                     this.getFavoriteGames();
                 }
             this.getGames();
-            
-            
-        }
-    }
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-.title{
+.title {
   text-align: center;
-  color:whitesmoke;
+  color: whitesmoke;
 }
 </style>
