@@ -1,11 +1,11 @@
 <template>
   <div>
-  <b-card no-body class="overflow-hidden" style="max-width: 540px;">
-    <b-row no-gutters>
-      <b-col md="6">
-        <b-card-img v-bind:src="image" alt="Image" class="rounded-0" v-on:click="goToPage()" style="cursor:pointer"></b-card-img>
+  <b-card no-body class="overflow-hidden">
+    <b-row>
+      <b-col>
+        <b-card-img v-bind:src="image" img-height="200" img-width="200" alt="Image" class="rounded-0" v-on:click="goToPage()" style="cursor:pointer"></b-card-img>
       </b-col>
-      <b-col md="6">
+      <b-col>
         <b-card-body>
           <b-card-text>
               <b v-on:click="goToPage()" style="cursor:pointer">{{full_name}}</b>

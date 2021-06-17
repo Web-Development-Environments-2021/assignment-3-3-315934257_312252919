@@ -43,7 +43,7 @@ export default {
             try{
                 let query = "http://localhost:3000/players/getFullDetails/" + idd;
                 const response = await this.axios.get(query);
-                console.log(response);
+                console.log(response.data);
                 let data = response.data;
                 this.id = idd;
                 this.full_name = data.name;

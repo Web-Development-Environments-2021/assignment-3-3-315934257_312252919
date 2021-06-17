@@ -4,8 +4,9 @@
     <b-input-group prepend="Search Query:" id="search-input">
       <b-form-input v-model="searchQuery"></b-form-input>
       <b-input-group-append>
-        <b-button v-on:click="search()" variant="success">Search</b-button>
-        <b-button @click='sortByName()' variant="success">Sort By Name</b-button>
+        <b-button v-on:click="search()" variant="success" :disabled="searchQuery==''">Search</b-button>
+        <b-button @click='sortByName()' variant="success" v-if="players.length > 0 || teams.length > 0">Sort By Name</b-button>
+        <b-button @click='sortByTeamName()' variant="success" v-if="players.length > 0">Sort By Team name</b-button>
       </b-input-group-append>
     </b-input-group>
       <br/>
@@ -64,7 +65,7 @@ export default {
       players:[],
       teams:[],
 
-      positions:[1,2,3,4,5,6,7,8,9,10],
+      positions:[1,2,3,4],
       possible_teams:[],
 
       teamplayerselected: '1',
@@ -87,7 +88,6 @@ export default {
         this.filterChoice = false;
       }
     },
-
     async search(){
       try{
         this.players = [];
@@ -123,6 +123,9 @@ export default {
       // }
       const response = await this.axios.get(query, {params:{team:teamparam, position: posparam}});
       let p = response.data;
+      if(p.length == 0){
+        this.$root.toast("Info", "No players were found", "info");
+      }
       this.players = [];
       this.players.push(...p);
     },
@@ -131,8 +134,19 @@ export default {
       const response = await this.axios.get(query);
       console.log(response.data);
       let t = response.data;
+      if(t.length == 0){
+        this.$root.toast("Info", "No teams were found", "info");
+      }
       this.teams = [];
       this.teams.push(...t);
+    },
+    sortByTeamName(){
+      try{
+          this.players.sort((a,b) => (a.team_name > b.team_name) ? 1 : ((b.team_name > a.team_name) ? -1 : 0))
+      } catch (error){
+        console.log("error in update games")
+        console.log(error);
+      }
     },
     sortByName(){
       try{
@@ -150,7 +164,8 @@ export default {
         console.log("error in update games")
         console.log(error);
       }
-    },
+    }
+
   },
   mounted(){
     this.possible_teams.push(...team_names);
