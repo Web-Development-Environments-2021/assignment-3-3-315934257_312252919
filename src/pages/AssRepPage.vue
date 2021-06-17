@@ -184,8 +184,11 @@
                     v-model="$v.addEventForm.gameMinute.$model"
                     :state="validateEventState('gameMinute')"
                     ></b-form-input>
-                    <b-form-invalid-feedback >
+                    <b-form-invalid-feedback v-if="!$v.addEventForm.gameMinute.required" >
                       Game minute is required
+                    </b-form-invalid-feedback>
+                    <b-form-invalid-feedback v-if="!$v.addEventForm.gameMinute.timeValidation">
+                      Game minute can be between 0 and 90
                     </b-form-invalid-feedback>
                 </b-form-group>
                 <b-form-group
@@ -363,7 +366,7 @@
 </template>
 
 <script>
-import { required, numeric } from "vuelidate/lib/validators";
+import { required, numeric, minValue, maxValue} from "vuelidate/lib/validators";
 import GamePreview from "../components/GamePreview.vue";
 // import GamesPage from "./GamesPages.vue";
 export default {
@@ -433,7 +436,8 @@ export default {
       gameTime: "",
       gameMinute: {
         required,
-        numeric
+        numeric,
+        timeValidation: (p) => minValue(0)(p) && maxValue(90)(p),
       },
       title:{
         required
