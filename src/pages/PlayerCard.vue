@@ -1,18 +1,30 @@
 <template>
     <div v-if="alreadyMounted" class="player-card">
-        <div :title="full_name" class="player-title">
-            <b>Name:</b> {{ full_name }}
-        </div>
-        <ul class="player-content">
-            <li> common name: {{ common_name }}</li>
-            <li> team: {{ team }}</li>
-            <li> position: {{ position }}</li>
-            <li> nationality: {{ nationality }}</li>
-            <li> born: {{ date_of_birth }}</li>
-            <li> height: {{ height }}</li>
-            <li> weight: {{ weight }}</li>
-        </ul>
-
+        <b-img v-bind:src="image" center width="400" height="400"></b-img>
+        <b-card :title="full_name" bg-variant="light">
+            <b-row>
+                <b-col>
+                    <p> Common Name: {{ common_name }}</p>
+                    <p> Team: {{ team }}</p>
+                    <p> Position: {{ position }}</p>
+                </b-col>
+                <b-col>
+                    <p> Nationality: {{ nationality }}</p>
+                    <p> Born on  {{ date_of_birth }}</p>
+                    <p> Height: {{ height }}</p>
+                    <p> Weight: {{ weight }}</p>
+                </b-col>
+            </b-row>
+        </b-card>
+        <!-- <div title="details" class="player-content">
+            <p> common name: {{ common_name }}</p>
+            <p> team: {{ team }}</p>
+            <p> position: {{ position }}</p>
+            <p> nationality: {{ nationality }}</p>
+            <p> born on  {{ date_of_birth }}</p>
+            <p> height: {{ height }}</p>
+            <p> weight: {{ weight }}</p>
+        </div> -->
     </div>
 </template>
 
@@ -76,27 +88,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.player-card {
-  display: inline-block;
-  width: 250px;
-  height: 200px;
-  position: relative;
-  margin: 10px 10px;
-  border-style: solid;
-  border-radius: 10px;
-  border-width: 5px;
-  border-color:cadetblue;
+#name{
+    text-align: center;
+    color: whitesmoke;
 }
+// .player-card {
+// }
 
-.player-card .player-title {
-  text-align: center;
-  text-transform: uppercase;
-  color:  rgb(111, 197, 157);
-}
+// .player-card .player-title {
+//   text-align: center;
+//   text-transform: uppercase;
+//   color:  rgb(111, 197, 157);
+// }
 
-.player-card .player-content {
+.player-content {
   width: 100%;
   overflow: hidden;
+  text-align: center;
+  color: whitesmoke;
 }
+// p{
+//   text-align: center;
+//   color: whitesmoke;
+// }
 
 </style>
