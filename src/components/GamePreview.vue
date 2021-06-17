@@ -5,12 +5,19 @@
       <ul class="game-content">
         <!-- <li> Host Team: {{ hostTeam }}</li> -->
         <!-- <li> Guest Team: {{ guestTeam }}</li> -->
+        <li v-if="showId"> Game Id: {{id}} </li>
         <li> Date: {{ date }}</li>
         <li> Time: {{ hour }}</li>
         <li v-if="field">Stadium: {{field}} </li>
         <li v-if="gameScore">Score: {{gameScore}}</li>
       </ul>
-      <b-button v-if="setBtn & !isHidden" @click='addAsFavorite(id)'>Add as Favorite</b-button>
+      <b-button v-if="setBtn & !isHidden" @click='addAsFavorite(id)' class="mt-auto btn btn-block btn-primary">Add as Favorite</b-button>
+      <b-list-group v-if="events">
+          <b-list-group-item variant="secondary" v-for="event in events" :key="event.id">
+            <h5>{{event.title}}</h5>
+            <p>Game Time: {{event.game_time}}, Game Minute: {{event.game_minute}}, Description: {{event.description}}</p>
+          </b-list-group-item>
+      </b-list-group>
     </b-card-text>
   </b-card>
 
@@ -63,6 +70,12 @@ export default {
       setBtn: {
         type: Boolean,
         required: true
+      },
+      showId: {
+        type: Boolean,
+      },
+      events:{
+        type: Array,
       }
   },
   data() {

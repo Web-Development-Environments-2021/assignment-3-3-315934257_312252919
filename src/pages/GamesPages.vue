@@ -12,6 +12,7 @@
             :field="game.field"
             :gameScore="game.home_team_score + ':' + game.away_team_score"
             :setBtn="false"
+            :events='game.events'
             >
             </GamePreview>  
         </b-card-group>
@@ -54,7 +55,9 @@ import GamePreview from "../components/GamePreview.vue"
                 const response = await this.axios.get(
                 "http://localhost:3000/games/stageGames"
                 );
-                // console.log(response.data.past)
+                console.log(response.data.past)
+                console.log("BREAK----")
+                console.log(response.data.future)
                 this.pastGames = [...response.data.past];
                 // console.log("PAST: " + this.pastGames)
                 this.futureGames = [...response.data.future];

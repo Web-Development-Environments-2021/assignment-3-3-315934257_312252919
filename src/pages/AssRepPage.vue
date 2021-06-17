@@ -2,8 +2,8 @@
 <div class="container">
     <h1 class="title">Association Representative Page</h1>
     <div>
-        <b-tabs lazy content-class="mt-4">
-            <b-tab title="Add Game" active>
+        <b-tabs v-model="tabIndex" lazy content-class="mt-4">
+            <b-tab title="Add Game" :title-link-class='linkClass(0)' >
               <h1 class="title">Add New Game</h1>
                 <b-form @submit.prevent="onAddingGame">
                 <b-form-group
@@ -131,8 +131,115 @@
                 Adding result failed: {{ addGameForm.submitError }}
                 </b-alert>  
             </b-tab>               
-            <b-tab title="Add Game Event">Add Game Event</b-tab>
-            <b-tab title="Add Game Result">
+            <b-tab title="Add Game Event" :title-link-class='linkClass(1)'>
+              <h1 class="title">Add Game Event</h1>
+                <b-form @submit.prevent="onAddingEvent">
+                <b-form-group
+                    id="input-group-game-id"
+                    label-cols-sm="3"
+                    label="Game ID:"
+                    label-for="gameid"
+                >
+                    <b-form-input
+                    id="gameid"
+                    v-model="$v.addEventForm.gameId.$model"
+                    type="text"
+                    :state="validateEventState('gameId')"
+                    ></b-form-input>
+                    <b-form-invalid-feedback v-if="!$v.addEventForm.gameId.numeric">
+                      Please enter a numeric value
+                    </b-form-invalid-feedback> 
+                    <b-form-invalid-feedback v-else-if="!$v.addEventForm.gameId.required">
+                     Game Id is required
+                    </b-form-invalid-feedback>
+                </b-form-group>
+
+                <b-form-group
+                    id="input-group-game-time"
+                    label-cols-sm="3"
+                    label="Game time:"
+                    label-for="gametime"
+                >
+                    <b-form-timepicker
+                    :hour12='false'
+                    placeholder="Choose a time"
+                    id="gametime"
+                    type="text"
+                    v-model="$v.addEventForm.gameTime.$model"
+                    :state="validateEventState('gameTime')"
+                    ></b-form-timepicker>
+                    <b-form-invalid-feedback v-if="!$v.addEventForm.gameTime.required">
+                     Game time is required
+                    </b-form-invalid-feedback>
+                </b-form-group>
+                <b-form-group
+                    id="input-group-game-minute"
+                    label-cols-sm="3"
+                    label="Game minute:"
+                    label-for="gameminute"
+                >
+                    <b-form-input
+                    id="gameminute"
+                    type="text"
+                    v-model="$v.addEventForm.gameMinute.$model"
+                    :state="validateEventState('gameMinute')"
+                    ></b-form-input>
+                    <b-form-invalid-feedback >
+                      Game minute is required
+                    </b-form-invalid-feedback>
+                </b-form-group>
+                <b-form-group
+                    id="input-group-title"
+                    label-cols-sm="3"
+                    label="Title:"
+                    label-for="title"
+                >
+                    <b-form-input
+                    id="title"
+                    type="text"
+                    v-model="$v.addEventForm.title.$model"
+                    :state="validateEventState('title')"
+                    ></b-form-input>
+                    <b-form-invalid-feedback >
+                      Title is required
+                    </b-form-invalid-feedback>
+                </b-form-group>
+                <b-form-group
+                    id="input-group-description"
+                    label-cols-sm="3"
+                    label="Description:"
+                    label-for="description"
+                >
+                    <b-form-input
+                    id="description"
+                    type="text"
+                    v-model="$v.addEventForm.description.$model"
+                    :state="validateEventState('description')"
+                    ></b-form-input>
+                    <b-form-invalid-feedback >
+                      Please enter a description
+                    </b-form-invalid-feedback>
+                </b-form-group>
+
+                <b-button
+                    type="submit"
+                    variant="primary"
+                    style="width:100px;display:block;"
+                    class="mx-auto w-100"
+                    >Add Event</b-button
+                >
+                </b-form>
+                <b-alert
+                class="mt-2"
+                v-if="addEventForm.submitError"
+                variant="warning"
+                dismissible
+                show
+                >
+                Adding event failed: {{ addEventForm.submitError }}
+                </b-alert>  
+            </b-tab>
+            <b-tab title="Add Game Result" :title-link-class='linkClass(2)'>
                 <h1 class="title">Add Game Result</h1>
                 <b-form @submit.prevent="onAddingResult">
                 <b-form-group
@@ -213,9 +320,10 @@
                 </b-alert>
 
             </b-tab>
-            <b-tab title="Games">
+            <b-tab title="Games" :title-link-class='linkClass(3)'>
               <h1>Past Games:</h1>
               <GamePreview v-for="game in pastGames"
+                class="text-dark"
                 :key="game.id"
                 :id ="game.id"
                 :hostTeam="game.away_team_name+'['+game.away_team+']'"
@@ -225,10 +333,12 @@
                 :field="game.field"
                 :gameScore="game.home_team_score + ':' + game.away_team_score"
                 :setBtn="false"
+                :showId="true"
                 >
               </GamePreview>  
               <h1>Future Games:</h1>
               <GamePreview v-for="game in futureGames"
+                class="text-dark"
                 :key="game.id"
                 :id ="game.id"
                 :hostTeam="game.home_team_name+'['+game.home_team+']'"
@@ -237,6 +347,8 @@
                 :hour="game.game_date_time.split('T')[1].split('.')[0]"
                 :field="game.field"
                 :setBtn="false"
+                :showId="true"
+
                 >
               </GamePreview>
               <!-- <GamesPage
@@ -258,6 +370,7 @@ export default {
   name: "AssRep",
   data() {
     return {
+        tabIndex: 0,
         pastGames: [],
         futureGames: [],
         addResultForm: {
@@ -274,6 +387,13 @@ export default {
           field: "",
           referee: "",
         },
+        addEventForm: {
+          gameId: "",
+          gameTime: "",
+          gameMinute: "",
+          title:"",
+          description:"",
+        }
     };
   },
   validations: {
@@ -304,6 +424,23 @@ export default {
       time: "",
       field: "",
       referee: "",
+    },
+    addEventForm: {
+      gameId: {
+        required, 
+        numeric
+      },
+      gameTime: "",
+      gameMinute: {
+        required,
+        numeric
+      },
+      title:{
+        required
+      },
+      description:{
+        required
+      },
     }
 
   },
@@ -312,6 +449,14 @@ export default {
       // GamesPage
   },
   methods: {
+    linkClass(idx) {
+
+        if (this.tabIndex === idx) {
+          return ['text-dark']
+        } else {
+          return ['text-light']
+        }
+      },
     async getGames(){
         try {
         const response = await this.axios.get(
@@ -334,6 +479,14 @@ export default {
           return;
         }
         this.setResult();
+    },
+    onAddingEvent(){
+        this.addEventForm.submitError = undefined;
+        this.$v.addEventForm.$touch();
+        if (this.$v.addEventForm.$anyError) {
+          return;
+        }
+        this.addEvent();
     },
     checkConnection(){
       if(!this.$root.store.username || !this.$root.store.userPermissions.includes('representative')){
@@ -359,6 +512,10 @@ export default {
     },
     validateGameState(param) {
         const { $dirty, $error } = this.$v.addGameForm[param];
+        return $dirty ? !$error : null;
+    },
+    validateEventState(param){
+        const { $dirty, $error } = this.$v.addEventForm[param];
         return $dirty ? !$error : null;
     },
     async setResult(){
@@ -402,6 +559,27 @@ export default {
         console.log(err.response)
       }
     },
+    async addEvent(){
+      try{
+        const response = await this.axios.post(
+        "http://localhost:3000/associationRepresentative/addEventSchedule",
+        {
+          game_id : this.addEventForm.gameId,
+          game_time : this.addEventForm.gameTime,
+          game_minute : this.addEventForm.gameMinute,
+          title: this.addEventForm.title,
+          description : this.addEventForm.description,
+        }
+        );
+        // this.addResultForm.gameId = undefined
+        // this.addResultForm.homeScore = undefined
+        // this.addResultForm.awayScore = undefined
+        this.$root.toast("Event Added", "Game event added successfully", "success");
+      }
+      catch(err){
+        console.log(err.response)
+      }
+    },
   },
   mounted(){
     if(!this.checkConnection()){
@@ -416,6 +594,11 @@ export default {
 <style lang="scss" scoped>
 .container {
   max-width: 650px;
+  color: whitesmoke;
+}
+
+.tab-title{
+  color: whitesmoke;
 }
 
 #search-input {

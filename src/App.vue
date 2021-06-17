@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <b-navbar toggleable="lg" type="dark" variant="info">
+    <b-navbar toggleable="lg" type="dark" variant="dark" class="fixed-top">
       <b-navbar-brand :to="{ name: 'main' }">
         <font-awesome-icon :icon="['fas', 'futbol']" />
         Managit</b-navbar-brand>
@@ -64,8 +64,13 @@ export default {
 <style lang="scss">
 @import "@/scss/form-style.scss";
 
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+body{
+  padding-top: 55px;
+}
 #app {
   // font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Nunito', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
@@ -87,5 +92,8 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+.navbar.navbar-dark.bg-dark{
+  background-color: #303644!important;
 }
 </style>

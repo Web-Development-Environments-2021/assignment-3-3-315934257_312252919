@@ -1,8 +1,10 @@
 <template>
-  <div>
-    <h1 class="title">Search Page</h1>
+  <div class='search-container'>
+    <div class='text-center'>
+      <h1 class="title">Search for Teams and Players</h1>
+    </div>
     <b-input-group prepend="Search Query:" id="search-input">
-      <b-form-input v-model="searchQuery"></b-form-input>
+      <b-form-input class='input-large' v-model="searchQuery"></b-form-input>
       <b-input-group-append>
         <b-button v-on:click="search()" variant="success">Search</b-button>
         <b-button @click='sortByName()' variant="success">Sort By Name</b-button>
@@ -19,12 +21,13 @@
         <!-- <b-button id="filter-button" v-on:click="filterChoose()">No Filter</b-button> -->
 
       <div id="player-filter" v-if="filterChoice">
-        <p>filter by position :</p>
+        <br>
+        <p>Filter by position :</p>
         <b-form-select id="position-select" v-model="positionselected">
           <b-form-select-option v-bind:value="0"></b-form-select-option>
           <b-form-select-option v-for="(pos, index) in positions" :key="index" v-bind:value="pos">{{pos}}</b-form-select-option>
         </b-form-select>
-        <p>filter by team :</p>
+        <p>Filter by team :</p>
         <b-form-select id="team-select" v-model="teamselected">
           <b-form-select-option v-bind:value="0"></b-form-select-option>
           <b-form-select-option v-for="(tn, index) in possible_teams" :key="index" v-bind:value="tn">{{tn}}</b-form-select-option>
@@ -159,7 +162,9 @@ export default {
 </script>
 
 <style scoped>
-
+.search-container{
+  color: whitesmoke;
+}
 #search-input {
   margin-left: 20px; 
   width: 500px; 
