@@ -41,6 +41,7 @@ import {
   IconsPlugin,
   VBHoverPlugin,
   BootstrapVueIcons,
+  ListGroupPlugin
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
@@ -61,7 +62,8 @@ import {
   ImagePlugin,
   IconsPlugin,
   VBHoverPlugin,
-  BootstrapVueIcons
+  BootstrapVueIcons,
+  ListGroupPlugin
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 

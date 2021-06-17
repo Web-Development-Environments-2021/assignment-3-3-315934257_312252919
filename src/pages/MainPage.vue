@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="title">Main Page</h1>
+    <h1 class="title">YOUR GAMES IN ONE PLACE</h1>
     <b-container>
       <b-row>
         <b-col>

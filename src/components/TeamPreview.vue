@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class='text-dark'>
         <b-card no-body class="overflow-hidden" style="max-width: 540px;">
             <b-row no-gutters>
             <b-col md="6">
@@ -49,5 +49,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>

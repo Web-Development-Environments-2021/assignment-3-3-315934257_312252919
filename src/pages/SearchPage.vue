@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="title">Search Page</h1>
+    <h1 class="title">Search for Teams and Players</h1>
     <br>
     <b-input-group prepend="Search Query:" id="search-input">
       <b-form-input v-model="searchQuery" id="search-input2"></b-form-input>
@@ -173,7 +173,9 @@ export default {
 </script>
 
 <style scoped>
-
+.search-container{
+  color: whitesmoke;
+}
 #search-input {
   margin-left: 20px; 
   max-width: 800px; 

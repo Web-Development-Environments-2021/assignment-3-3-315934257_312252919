@@ -1,5 +1,5 @@
 <template>
-    <div class="league-preview">
+    <div class="league-preview" v-if="alreadyMounted">
       <b-card
       v-bind:img-src="this.league_logo"
       img-alt="Image"
@@ -37,7 +37,7 @@ export default {
       league_logo: "", 
       season: "season", 
       stage: "stage",
-
+      alreadyMounted: false,
       nextGame: undefined,      
 
     };
@@ -55,6 +55,7 @@ export default {
       this.season = data.current_season_name;
       this.stage = data.current_stage;
       this.nextGame = data.next_game;
+      this.alreadyMounted = true;
 
     }catch(error){
       console.log(error);
