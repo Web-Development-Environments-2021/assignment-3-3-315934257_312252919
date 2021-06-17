@@ -16,6 +16,7 @@
       <b-form-select-option value="1">Player</b-form-select-option>
       <b-form-select-option value="2">Team</b-form-select-option>
     </b-form-select>
+    <br>
 
     <div id="player-filter" v-if="filterChoice">
       <p>filter by position :</p>

@@ -1,5 +1,5 @@
 <template>
-  <b-card bg-variant="light">
+  <b-card bg-variant="light" id="card">
     <b-card-title>{{hostTeam}} VS. {{guestTeam}}</b-card-title>
     <b-card-text>
       <ul class="game-content">
@@ -11,7 +11,7 @@
         <li v-if="field">Stadium: {{field}} </li>
         <li v-if="gameScore">Score: {{gameScore}}</li>
       </ul>
-      <b-button v-if="setBtn & !isHidden" @click='addAsFavorite(id)' class="mt-auto btn btn-block btn-primary">Add as Favorite</b-button>
+      <b-button id="favbtn" v-if="setBtn & !isHidden" @click='addAsFavorite(id)' class="mt-auto btn btn-block btn-primary">Add as Favorite</b-button>
       <b-list-group v-if="events">
           <b-list-group-item variant="secondary" v-for="event in events" :key="event.id">
             <h5>{{event.title}}</h5>
@@ -20,21 +20,6 @@
       </b-list-group>
     </b-card-text>
   </b-card>
-
-  <!-- <div class="game-preview">
-    <div :title="id" class="game-title">
-      <b>Game Id:</b> {{ id }}
-    </div>
-    <ul class="game-content">
-      <li> Host Team: {{ hostTeam }}</li>
-      <li> Guest Team: {{ guestTeam }}</li>
-      <li> Date: {{ date }}</li>
-      <li> Time: {{ hour }}</li>
-      <li v-if="field">Stadium: {{field}} </li>
-      <li v-if="gameScore">Score: {{gameScore}}</li>
-    </ul>
-    <b-button v-if="setBtn & !isHidden" @click='addAsFavorite(id)'>Add as Favorite</b-button>
-  </div> -->
 </template>
 
 <script>
@@ -124,6 +109,14 @@ export default {
 .game-preview .game-content {
   width: 100%;
   overflow: hidden;
+}
+#card{
+  position: relative;
+}
+#favbtn{
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 
 

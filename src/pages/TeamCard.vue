@@ -96,10 +96,11 @@ export default {
 <style lang="scss" scoped>
 .title{
   text-align: center;
-  color:black;
+  color:whitesmoke;
 }
 #team_name{
     padding-top: 35px;
+    color:black;
 }
 .pp{
     max-width: 400px;

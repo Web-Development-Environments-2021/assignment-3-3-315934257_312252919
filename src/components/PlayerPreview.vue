@@ -1,6 +1,6 @@
 <template>
-  <div>
-  <b-card no-body class="overflow-hidden" style="max-width: 540px;">
+<div>
+  <b-card no-body class="player-card" style="max-width: 540px;">
     <b-row>
       <b-col>
         <b-card-img v-bind:src="image" alt="Image" class="rounded-0" v-on:click="goToPage()" style="cursor:pointer"></b-card-img>
@@ -59,6 +59,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.player-card{
+  height: 105%;
+}
 // .player-preview {
 //   display: inline-block;
 //   width: 250px;
