@@ -1,17 +1,32 @@
 <template>
   <div class='favGame' v-if="alreadyMounted">
     <div v-if="games.length !=0">
-      <GamePreview
-        v-for="g in games"
-        :id="g.game_id" 
-        :hostTeam="g.home_team_name" 
-        :guestTeam="g.away_team_name" 
-        :date="g.game_date_time.split('T')[0]"
-        :hour="g.game_date_time.split('T')[1].split('.')[0]"
-        :field="g.field"
-        :setBtn='false'
-        :key="g.game_id">
-      </GamePreview>
+      <div v-if='!isMainPage'>
+        <GamePreview
+          v-for="g in games"
+          :id="g.game_id" 
+          :hostTeam="g.home_team_name" 
+          :guestTeam="g.away_team_name" 
+          :date="g.game_date_time.split('T')[0]"
+          :hour="g.game_date_time.split('T')[1].split('.')[0]"
+          :field="g.field"
+          :setBtn='false'
+          :key="g.game_id">
+        </GamePreview>
+      </div>
+      <div v-else>
+        <GamePreview
+          v-for="g in games.slice(0,3)"
+          :id="g.game_id" 
+          :hostTeam="g.home_team_name" 
+          :guestTeam="g.away_team_name" 
+          :date="g.game_date_time.split('T')[0]"
+          :hour="g.game_date_time.split('T')[1].split('.')[0]"
+          :field="g.field"
+          :setBtn='false'
+          :key="g.game_id">
+        </GamePreview>
+      </div>
     </div>
     <div v-else>
       <p>No Favourite Games!!</p>
@@ -31,6 +46,12 @@ export default {
       games: [],
       alreadyMounted: false
     };
+  },
+  props: {
+    isMainPage: {
+      type: Boolean,
+      required: false,
+    }
   },
   methods: {
     async updateGames(){
