@@ -3,6 +3,7 @@
       <b-card
       v-bind:img-src="this.league_logo"
       img-alt="Image"
+      img-height="200"
       tag="article"
       border-variant="info"
       class="mb-2"
@@ -71,5 +72,8 @@ export default {
 .nextTitle{
   text-align: center;
   color:whitesmoke;
+}
+.league-preview{
+  width: 400px;
 }
 </style>

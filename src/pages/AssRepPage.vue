@@ -44,6 +44,9 @@
                     <b-form-invalid-feedback v-else-if="!$v.addGameForm.awayTeamId.required">
                      Away Team Id is required
                     </b-form-invalid-feedback>
+                    <b-form-invalid-feedback v-else-if="!$v.addGameForm.awayTeamId.checkId">
+                      A team can not play against itself
+                    </b-form-invalid-feedback>
                 </b-form-group>
                 <b-form-group
                     id="input-group-game-date"
@@ -86,15 +89,17 @@
                     label="Stadium:"
                     label-for="field"
                 >
-                    <b-form-input
-                    id="field"
-                    type="text"
-                    v-model="$v.addGameForm.field.$model"
-                    :state="validateGameState('field')"
-                    ></b-form-input>
-                    <b-form-invalid-feedback >
-                      Please choose a stadium
-                    </b-form-invalid-feedback>
+
+                <b-form-select 
+                id="field" 
+                v-model="$v.addGameForm.field.$model" 
+                :state="validateGameState('field')">
+                  <b-form-select-option></b-form-select-option>
+                  <b-form-select-option v-for="(tn, index) in stadiums" :key="index" v-bind:value="tn">{{tn}}</b-form-select-option>
+                </b-form-select>
+                  <b-form-invalid-feedback >
+                    Please choose a stadium
+                  </b-form-invalid-feedback>
                 </b-form-group>
                 <b-form-group
                     id="input-group-game-referee"
@@ -329,7 +334,7 @@
                 class="text-dark"
                 :key="game.id"
                 :id ="game.id"
-                :hostTeam="game.away_team_name+'['+game.away_team+']'"
+                :hostTeam="game.home_team_name+'['+game.home_team+']'"
                 :guestTeam="game.away_team_name+'['+game.away_team+']'"
                 :date="game.game_date_time.split('T')[0]"
                 :hour="game.game_date_time.split('T')[1].split('.')[0]"
@@ -368,6 +373,7 @@
 <script>
 import { required, numeric, minValue, maxValue} from "vuelidate/lib/validators";
 import GamePreview from "../components/GamePreview.vue";
+import stadiums from "../assets/stadiums.js";
 // import GamesPage from "./GamesPages.vue";
 export default {
   name: "AssRep",
@@ -376,6 +382,7 @@ export default {
         tabIndex: 0,
         pastGames: [],
         futureGames: [],
+        stadiums: [],
         addResultForm: {
             gameId: "",
             homeScore: undefined,
@@ -421,12 +428,20 @@ export default {
       },
       awayTeamId: {
         required,
-        numeric
+        numeric,
       },
-      date: "",
-      time: "",
-      field: "",
-      referee: "",
+      date: {
+        required
+      },
+      time: {
+        required
+      },
+      field: {
+        required
+      },
+      referee: {
+        required
+      },
     },
     addEventForm: {
       gameId: {
@@ -543,6 +558,10 @@ export default {
     },
     async addGame(){
       try{
+        if(this.addGameForm.homeTeamId == this.addGameForm.awayTeamId){
+          this.$root.toast("Game was not Added", "A team can not play against itself", "warning");
+          return;
+        }
         const response = await this.axios.post(
         "http://localhost:3000/games/addGame",
         {
@@ -553,7 +572,11 @@ export default {
           referee_name: this.addGameForm.referee
         }
         );
-        // console.log(response)
+        console.log(response.data)
+        if(response.data.status == 406){
+          this.$root.toast("Game was not Added", response.data.message , "warning");
+          return;
+        }
         // this.addResultForm.gameId = undefined
         // this.addResultForm.homeScore = undefined
         // this.addResultForm.awayScore = undefined
@@ -589,6 +612,7 @@ export default {
     if(!this.checkConnection()){
       return;
     }
+    this.stadiums = [...stadiums]
     this.getGames()
   }
   

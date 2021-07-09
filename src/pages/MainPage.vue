@@ -8,7 +8,7 @@
         </b-col>
         <b-col>
           <LoginPage v-if="!$root.store.username"></LoginPage>
-          <FavoriteGames v-else></FavoriteGames>
+          <FavoriteGames :isMainPage=true v-else></FavoriteGames>
         </b-col>
       </b-row>
     </b-container>    
