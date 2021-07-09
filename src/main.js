@@ -117,8 +117,6 @@ const shared_data = {
     this.userPermissions = '';
   }
 };
-console.log(shared_data);
-// Vue.prototype.$root.store = shared_data;
 
 new Vue({
   router,
