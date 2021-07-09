@@ -89,15 +89,17 @@
                     label="Stadium:"
                     label-for="field"
                 >
-                    <b-form-input
-                    id="field"
-                    type="text"
-                    v-model="$v.addGameForm.field.$model"
-                    :state="validateGameState('field')"
-                    ></b-form-input>
-                    <b-form-invalid-feedback >
-                      Please choose a stadium
-                    </b-form-invalid-feedback>
+
+                <b-form-select 
+                id="field" 
+                v-model="$v.addGameForm.field.$model" 
+                :state="validateGameState('field')">
+                  <b-form-select-option></b-form-select-option>
+                  <b-form-select-option v-for="(tn, index) in stadiums" :key="index" v-bind:value="tn">{{tn}}</b-form-select-option>
+                </b-form-select>
+                  <b-form-invalid-feedback >
+                    Please choose a stadium
+                  </b-form-invalid-feedback>
                 </b-form-group>
                 <b-form-group
                     id="input-group-game-referee"
@@ -371,6 +373,7 @@
 <script>
 import { required, numeric, minValue, maxValue} from "vuelidate/lib/validators";
 import GamePreview from "../components/GamePreview.vue";
+import stadiums from "../assets/stadiums.js";
 // import GamesPage from "./GamesPages.vue";
 export default {
   name: "AssRep",
@@ -379,6 +382,7 @@ export default {
         tabIndex: 0,
         pastGames: [],
         futureGames: [],
+        stadiums: [],
         addResultForm: {
             gameId: "",
             homeScore: undefined,
@@ -426,10 +430,18 @@ export default {
         required,
         numeric,
       },
-      date: "",
-      time: "",
-      field: "",
-      referee: "",
+      date: {
+        required
+      },
+      time: {
+        required
+      },
+      field: {
+        required
+      },
+      referee: {
+        required
+      },
     },
     addEventForm: {
       gameId: {
@@ -600,6 +612,7 @@ export default {
     if(!this.checkConnection()){
       return;
     }
+    this.stadiums = [...stadiums]
     this.getGames()
   }
   
