@@ -1,8 +1,8 @@
 <template>
-    <div v-if="alreadyMounted">
+    <div class='main' v-if="alreadyMounted">
         <h1 class="title">Past Games:</h1>
-        <b-card-group>
             <GamePreview v-for="game in pastGames" ref='past'
+            :style="{width: '95%', marginTop: '5%'}"
             :key="game.id"
             :id ="game.id"
             :hostTeam="game.home_team_name"
@@ -15,11 +15,11 @@
             :events='game.events'
             >
             </GamePreview>  
-        </b-card-group>
         
         <h1 class="title">Future Games:</h1>
-        <b-card-group>
+        <b-card-group deck>
             <GamePreview v-for="game in futureGames" ref='future'
+            :style="{margin: '5px'}"
             :key="game.id"
             :id ="game.id"
             :hostTeam="game.home_team_name"
@@ -111,5 +111,10 @@ import GamePreview from "../components/GamePreview.vue"
 .title {
   text-align: center;
   color: whitesmoke;
+}
+.main{
+    display: block;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 </style>
