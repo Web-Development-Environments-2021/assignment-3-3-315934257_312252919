@@ -61,8 +61,8 @@ import TeamPreview from "../components/TeamPreview.vue"
 export default {
  data() {
     return {
-      searchQuery:"",
-      players:[],
+      searchQuery: "",
+      players: [],
       teams:[],
 
       positions:[1,2,3,4],
@@ -102,6 +102,13 @@ export default {
         else{
           return;
         }
+        this.updateLocal(e.value);
+
+
+        console.log(this.players);
+        console.log();
+        console.log(localStorage.lastSearchQ);
+        console.log(JSON.parse(localStorage.lastSearchResult));
       } catch (error){
         console.log("error in update games")
         console.log(error);
@@ -164,11 +171,29 @@ export default {
         console.log("error in update games")
         console.log(error);
       }
+    },
+    updateLocal(choise){
+      localStorage.setItem("lastSearchQ", this.searchQuery);
+      if(choise == "1"){
+        localStorage.setItem("lastSearchResult", JSON.stringify(this.players));
+      }
+      else if(choise == "2"){
+        localStorage.setItem("lastSearchResult", JSON.stringify(this.teams));
+      }
+      localStorage.setItem("choise", choise);
     }
 
   },
   mounted(){
     this.possible_teams.push(...team_names);
+
+    this.searchQuery = localStorage.lastSearchQ || "";
+    if(localStorage.choise && localStorage.choise == "1" && localStorage.lastSearchResult){
+      this.players = JSON.parse(localStorage.lastSearchResult) || [];
+    }
+    else if(localStorage.choise && localStorage.choise == "2" && localStorage.lastSearchResult){
+      this.teams = JSON.parse(localStorage.lastSearchResult) || [];
+    }
   }
 }
 </script>

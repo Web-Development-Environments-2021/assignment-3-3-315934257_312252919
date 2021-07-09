@@ -110,7 +110,10 @@ const shared_data = {
     console.log("logout");
     localStorage.removeItem("username");
     this.username = undefined;
-    localStorage.removeItem("userPermissions")
+    localStorage.removeItem("userPermissions");
+    localStorage.removeItem("lastSearchQ");
+    localStorage.removeItem("lastSearchResult");
+    localStorage.removeItem("choise");
     this.userPermissions = '';
   }
 };
