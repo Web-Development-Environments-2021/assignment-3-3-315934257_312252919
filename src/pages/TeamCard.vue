@@ -21,7 +21,9 @@
         <GamePreview v-for="g in past_games"
         :id="g.game_id"
         :hostTeam="g.home_team_name"
+        :hostTeamId="g.home_team_id"
         :guestTeam="g.away_team_name"
+        :guestTeamId="g.away_team_id"
         :date="g.game_date_time.split('T')[0]"
         :hour="g.game_date_time.split('T')[1].split('.')[0]"
         :key="g.id"
@@ -31,7 +33,9 @@
         <GamePreview v-for="g in future_games"
         :id="g.game_id"
         :hostTeam="g.home_team_name"
+        :hostTeamId="g.home_team_id"
         :guestTeam="g.away_team_name"
+        :guestTeamId="g.away_team_id"
         :date="g.game_date_time.split('T')[0]"
         :hour="g.game_date_time.split('T')[1].split('.')[0]"
         :key="g.id"
@@ -61,23 +65,21 @@ export default {
     methods:{
         async updateTeam(id){
             try{
-                console.log(id);
                 const response = await this.axios.get(
                     "http://localhost:3000/teams/teamFullDetails/" + id,
                 );
-                console.log(response.data);
                 const players = response.data.players_info;
                 const past = response.data.past_games;
                 const future = response.data.future_games;
                 this.team_name = response.data.team_info.team_name;
                 this.logo = response.data.team_info.logo;
-                console.log(this.team_name);
                 this.players = [];
                 this.past_games = [];
                 this.future_games = [];
                 this.players.push(...players);
                 this.past_games.push(...past);
                 this.future_games.push(...future);
+                console.log(this.future_games);
             }
             catch (error){
                 console.log("error in update TeamCard");
@@ -86,9 +88,7 @@ export default {
         }
     },
     async mounted(){
-        console.log(this.$route.params.id);
         await this.updateTeam(this.$route.params.id);
-        console.log("Team mount done")
     }
 }
 </script>

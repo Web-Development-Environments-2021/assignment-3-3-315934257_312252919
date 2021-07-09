@@ -1,10 +1,10 @@
 <template>
   <b-card bg-variant="light" id="card">
-    <b-card-title>{{hostTeam}} VS. {{guestTeam}}</b-card-title>
+    <b-card-title>
+      <span @click="goToPage('home')" style="cursor:pointer">{{hostTeam}}</span> VS. <span @click="goToPage('away')" style="cursor:pointer">{{guestTeam}}</span>
+    </b-card-title>
     <b-card-text>
       <ul class="game-content">
-        <!-- <li> Host Team: {{ hostTeam }}</li> -->
-        <!-- <li> Guest Team: {{ guestTeam }}</li> -->
         <li v-if="showId"> Game Id: {{id}} </li>
         <li> Date: {{ date }}</li>
         <li> Time: {{ hour }}</li>
@@ -34,8 +34,16 @@ export default {
         type: String,
         required: true
       },
+      hostTeamId: {
+        type: Number,
+        required: true
+      },
       guestTeam: {
         type: String,
+        required: true
+      },
+      guestTeamId: {
+        type: Number,
         required: true
       },
       date: {
@@ -81,6 +89,21 @@ export default {
       }
       catch(error){
         console.log(error.response)
+      }
+    },
+    goToPage(team){
+      console.log("Innnnn");
+      if (team == "home"){
+        console.log(team);
+        this.$router.push("/team/" + this.hostTeamId).catch(() =>{
+                this.$forceUpdate();
+            });
+      }
+      else if (team == "away"){
+        console.log(team);
+        this.$router.push("/team/" + this.guestTeamId).catch(() =>{
+                this.$forceUpdate();
+            });
       }
     }
   },

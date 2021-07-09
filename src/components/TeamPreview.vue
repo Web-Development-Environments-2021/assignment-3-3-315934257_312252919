@@ -6,11 +6,8 @@
                 <b-card-img v-bind:src="image" alt="Image" class="rounded-0" v-on:click="goToPage()" style="cursor:pointer"></b-card-img>
             </b-col>
             <b-col md="6">
-                <!-- <b-card-body v-bind:title="team_name"> -->
                 <b-card-body>
                     <b v-on:click="goToPage()" style="cursor:pointer"> {{team_name}}</b>
-                <!-- <b-card-text>
-                </b-card-text> -->
                 </b-card-body>
             </b-col>
             </b-row>
@@ -38,7 +35,6 @@ export default {
     },
     methods:{
         goToPage(){
-            console.log("Page");
             this.$router.push("/team/" + this.id).catch(() =>{
                 this.$forceUpdate();
             });
