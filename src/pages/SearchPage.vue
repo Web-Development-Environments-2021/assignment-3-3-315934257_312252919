@@ -103,12 +103,6 @@ export default {
           return;
         }
         this.updateLocal(e.value);
-
-
-        console.log(this.players);
-        console.log();
-        console.log(localStorage.lastSearchQ);
-        console.log(JSON.parse(localStorage.lastSearchResult));
       } catch (error){
         console.log("error in update games")
         console.log(error);
@@ -190,9 +184,11 @@ export default {
     this.searchQuery = localStorage.lastSearchQ || "";
     if(localStorage.choise && localStorage.choise == "1" && localStorage.lastSearchResult){
       this.players = JSON.parse(localStorage.lastSearchResult) || [];
+      this.teamplayerselected = localStorage.choise;
     }
     else if(localStorage.choise && localStorage.choise == "2" && localStorage.lastSearchResult){
       this.teams = JSON.parse(localStorage.lastSearchResult) || [];
+      this.teamplayerselected = localStorage.choise;
     }
   }
 }
