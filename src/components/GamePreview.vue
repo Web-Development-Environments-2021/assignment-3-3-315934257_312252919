@@ -92,15 +92,12 @@ export default {
       }
     },
     goToPage(team){
-      console.log("Innnnn");
       if (team == "home"){
-        console.log(team);
         this.$router.push("/team/" + this.hostTeamId).catch(() =>{
                 this.$forceUpdate();
             });
       }
       else if (team == "away"){
-        console.log(team);
         this.$router.push("/team/" + this.guestTeamId).catch(() =>{
                 this.$forceUpdate();
             });

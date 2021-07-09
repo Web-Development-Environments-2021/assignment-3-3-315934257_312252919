@@ -59,13 +59,8 @@ import GamePreview from "../components/GamePreview.vue"
                 const response = await this.axios.get(
                 "http://localhost:3000/games/stageGames"
                 );
-                console.log(response.data.past)
-                console.log("BREAK----")
-                console.log(response.data.future)
                 this.pastGames = [...response.data.past];
-                // console.log("PAST: " + this.pastGames)
                 this.futureGames = [...response.data.future];
-                // console.log("FUTURE: " + this.futureGames)
                 this.alreadyMounted = true;
                 }
                 catch(error){
@@ -80,16 +75,11 @@ import GamePreview from "../components/GamePreview.vue"
                     const games = response.data;
                     this.userFavoriteGames = [];
                     this.userFavoriteGames.push(...games);
-                    // console.log(this.userFavoriteGames)
-                    // console.log(response);
-                    // this.alreadyMounted = true;
                 } catch (error) {
-                    // console.log("error in update games");
                     console.log(error);
                 }
             },
             findGameInFavorites(game){
-                // console.log("IN FIND")
                 if(!this.$root.store.username){
                     return true;
                 }

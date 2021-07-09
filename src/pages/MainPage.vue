@@ -1,17 +1,23 @@
 <template>
   <div>
     <h1 class="title">YOUR GAMES IN ONE PLACE</h1>
-    <b-container>
-      <b-row>
-        <b-col>
-          <LeagueInfo></LeagueInfo>
-        </b-col>
-        <b-col>
-          <LoginPage v-if="!$root.store.username"></LoginPage>
-          <FavoriteGames :isMainPage=true v-else></FavoriteGames>
-        </b-col>
-      </b-row>
-    </b-container>    
+    
+      <b-container>
+        <b-row>
+          <b-col>
+            <!-- <b-card-group> -->
+            <LeagueInfo></LeagueInfo>
+            <!-- </b-card-group> -->
+          </b-col>
+          <b-col>
+            <!-- <b-card-group> -->
+              <LoginPage v-if="!$root.store.username"></LoginPage>
+              <FavoriteGames :isMainPage=true v-else></FavoriteGames>
+            <!-- </b-card-group>   -->
+          </b-col>
+        </b-row>
+      </b-container>  
+
   </div>
 </template>
 

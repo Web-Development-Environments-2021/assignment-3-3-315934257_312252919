@@ -133,7 +133,6 @@ export default {
     async searchTeams(){
       let query = "http://localhost:3000/teams/search/" + this.searchQuery;
       const response = await this.axios.get(query);
-      console.log(response.data);
       let t = response.data;
       if(t.length == 0){
         this.$root.toast("Info", "No teams were found", "info");

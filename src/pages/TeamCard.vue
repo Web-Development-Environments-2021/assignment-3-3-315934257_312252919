@@ -79,7 +79,6 @@ export default {
                 this.players.push(...players);
                 this.past_games.push(...past);
                 this.future_games.push(...future);
-                console.log(this.future_games);
             }
             catch (error){
                 console.log("error in update TeamCard");

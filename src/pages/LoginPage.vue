@@ -141,5 +141,6 @@ export default {
 <style lang="scss" scoped>
 .container {
   max-width: 400px;
+  color: rgb(49, 50, 58);
 }
 </style>
