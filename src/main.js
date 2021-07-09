@@ -104,10 +104,8 @@ const shared_data = {
     localStorage.setItem("userPermissions", userPerms);
     this.username = username;
     this.userPermissions = userPerms;
-    console.log("login", this.username);
   },
   logout() {
-    console.log("logout");
     localStorage.removeItem("username");
     this.username = undefined;
     localStorage.removeItem("userPermissions");

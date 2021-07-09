@@ -5,7 +5,9 @@
         v-for="g in games"
         :id="g.game_id" 
         :hostTeam="g.home_team_name" 
+        :hostTeamId='g.home_team_id'
         :guestTeam="g.away_team_name" 
+        :guestTeamId="g.away_team_id"
         :date="g.game_date_time.split('T')[0]"
         :hour="g.game_date_time.split('T')[1].split('.')[0]"
         :field="g.field"
@@ -34,7 +36,6 @@ export default {
     },
     methods: {
         async updateGames(){
-            console.log("response");
             try {
                 const response = await this.axios.get(
                 "http://localhost:3000/users/favoriteGames",
@@ -42,7 +43,6 @@ export default {
                 const games = response.data;
                 this.games = [];
                 this.games.push(...games);
-                console.log(this.games);
                 this.isAlreadyMounted = true;
             } catch (error) {
                 console.log("error in update games");

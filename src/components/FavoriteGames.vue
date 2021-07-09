@@ -1,8 +1,9 @@
 <template>
   <div class='favGame' v-if="alreadyMounted">
-    <div v-if="games.length !=0">
+    <div v-if="games.length !=0" >
       <div v-if='!isMainPage'>
         <GamePreview
+          class='games-div'
           v-for="g in games"
           :id="g.game_id" 
           :hostTeam="g.home_team_name"
@@ -18,6 +19,7 @@
        </div>
        <div v-else>
          <GamePreview
+          class='games-div'
           v-for="g in games"
           :id="g.game_id" 
           :hostTeam="g.home_team_name"
@@ -80,11 +82,28 @@ export default {
   mounted(){
     this.updateGames();
   }
+  // async beforeCreate(){
+  //         try {
+  //       const response = await this.axios.get(
+  //         "http://localhost:3000/users/favoriteGames",
+  //       );
+  //       const games = response.data;
+  //       this.games = [];
+  //       this.games.push(...games);
+  //       this.alreadyMounted = true;
+  //     } catch (error) {
+  //       console.log("error in update games");
+  //       console.log(error);
+  //     }
+  // }
 };
 </script>
 
 <style>
 .favGame{
   padding: 0;
+}
+.games-div{
+  margin: 5px;
 }
 </style>

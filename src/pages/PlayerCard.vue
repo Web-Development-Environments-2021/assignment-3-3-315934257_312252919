@@ -1,6 +1,6 @@
 <template>
     <div v-if="alreadyMounted" class="player-card">
-        <b-img v-bind:src="image" center width="400" height="400"></b-img>
+        <b-img v-bind:src="image" center thumbnail ></b-img>
         <b-card :title="full_name" bg-variant="light">
             <b-row>
                 <b-col>
@@ -55,7 +55,6 @@ export default {
             try{
                 let query = "http://localhost:3000/players/getFullDetails/" + idd;
                 const response = await this.axios.get(query);
-                console.log(response.data);
                 let data = response.data;
                 this.id = idd;
                 this.full_name = data.name;
@@ -81,7 +80,6 @@ export default {
 
     },
     mounted(){
-        console.log(this.$route.params.id);
         this.getPlayerData(this.$route.params.id);
     }
 }
