@@ -44,6 +44,9 @@
                     <b-form-invalid-feedback v-else-if="!$v.addGameForm.awayTeamId.required">
                      Away Team Id is required
                     </b-form-invalid-feedback>
+                    <b-form-invalid-feedback v-else-if="!$v.addGameForm.awayTeamId.checkId">
+                      A team can not play against itself
+                    </b-form-invalid-feedback>
                 </b-form-group>
                 <b-form-group
                     id="input-group-game-date"
@@ -329,7 +332,7 @@
                 class="text-dark"
                 :key="game.id"
                 :id ="game.id"
-                :hostTeam="game.away_team_name+'['+game.away_team+']'"
+                :hostTeam="game.home_team_name+'['+game.home_team+']'"
                 :guestTeam="game.away_team_name+'['+game.away_team+']'"
                 :date="game.game_date_time.split('T')[0]"
                 :hour="game.game_date_time.split('T')[1].split('.')[0]"
@@ -421,7 +424,7 @@ export default {
       },
       awayTeamId: {
         required,
-        numeric
+        numeric,
       },
       date: "",
       time: "",
@@ -543,6 +546,10 @@ export default {
     },
     async addGame(){
       try{
+        if(this.addGameForm.homeTeamId == this.addGameForm.awayTeamId){
+          this.$root.toast("Game was not Added", "A team can not play against itself", "warning");
+          return;
+        }
         const response = await this.axios.post(
         "http://localhost:3000/games/addGame",
         {
@@ -553,7 +560,11 @@ export default {
           referee_name: this.addGameForm.referee
         }
         );
-        // console.log(response)
+        console.log(response.data)
+        if(response.data.status == 406){
+          this.$root.toast("Game was not Added", response.data.message , "warning");
+          return;
+        }
         // this.addResultForm.gameId = undefined
         // this.addResultForm.homeScore = undefined
         // this.addResultForm.awayScore = undefined
