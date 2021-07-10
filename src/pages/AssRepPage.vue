@@ -113,8 +113,11 @@
                     v-model="$v.addGameForm.referee.$model"
                     :state="validateGameState('referee')"
                     ></b-form-input>
-                    <b-form-invalid-feedback >
-                      Please choose a referee
+                    <b-form-invalid-feedback v-if="!$v.addGameForm.referee.required">
+                      Referee name is required
+                    </b-form-invalid-feedback>
+                    <b-form-invalid-feedback v-if="!$v.addGameForm.referee.lengthValidation">
+                      Referee name length can not be more than 50 characters
                     </b-form-invalid-feedback>
                 </b-form-group>
 
@@ -208,8 +211,11 @@
                     v-model="$v.addEventForm.title.$model"
                     :state="validateEventState('title')"
                     ></b-form-input>
-                    <b-form-invalid-feedback >
+                    <b-form-invalid-feedback v-if="!$v.addEventForm.title.required">
                       Title is required
+                    </b-form-invalid-feedback>
+                    <b-form-invalid-feedback v-if="!$v.addEventForm.title.lengthValidation">
+                      Title length can not be more than 50 characters
                     </b-form-invalid-feedback>
                 </b-form-group>
                 <b-form-group
@@ -224,8 +230,11 @@
                     v-model="$v.addEventForm.description.$model"
                     :state="validateEventState('description')"
                     ></b-form-input>
-                    <b-form-invalid-feedback >
-                      Please enter a description
+                    <b-form-invalid-feedback v-if="!$v.addEventForm.description.required">
+                      Description is required
+                    </b-form-invalid-feedback>
+                    <b-form-invalid-feedback v-if="!$v.addEventForm.description.lengthValidation">
+                      Description length can not be more than 50 characters
                     </b-form-invalid-feedback>
                 </b-form-group>
 
@@ -371,7 +380,7 @@
 </template>
 
 <script>
-import { required, numeric, minValue, maxValue} from "vuelidate/lib/validators";
+import { required, numeric, minValue, maxValue, maxLength} from "vuelidate/lib/validators";
 import GamePreview from "../components/GamePreview.vue";
 import stadiums from "../assets/stadiums.js";
 // import GamesPage from "./GamesPages.vue";
@@ -440,7 +449,8 @@ export default {
         required
       },
       referee: {
-        required
+        required,
+        lengthValidation: (p) => maxLength(50)(p)
       },
     },
     addEventForm: {
@@ -455,10 +465,12 @@ export default {
         timeValidation: (p) => minValue(0)(p) && maxValue(90)(p),
       },
       title:{
-        required
+        required,
+        lengthValidation: (p) => maxLength(50)(p)
       },
       description:{
-        required
+        required,
+        lengthValidation: (p) => maxLength(50)(p)
       },
     }
 
